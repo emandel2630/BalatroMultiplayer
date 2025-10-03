@@ -11,7 +11,7 @@ function MP.UI.lobby_info()
 			create_tabs({
 				tabs = {
 					{
-						label = MP.LOBBY.player_count .. " " .. localize("b_players"),
+						label = MP.LOBBY.player_count .. " " .. localize("b_players") .. (MP.LOBBY.config.testing_mode and " (Testing)" or ""),
 						chosen = true,
 						tab_definition_function = MP.UI.create_UIBox_players,
 					},
@@ -422,6 +422,7 @@ function MP.UI.create_UIBox_lobby_settings()
 						MP.UI.create_UIBox_value_row("b_opts_money_modifier", MP.LOBBY.config.starting_money_modifier),
 						MP.UI.create_UIBox_value_row("b_opts_hand_modifier", MP.LOBBY.config.starting_hand_modifier),
 						MP.UI.create_UIBox_value_row("b_opts_discard_modifier", MP.LOBBY.config.starting_discard_modifier),
+						MP.UI.create_UIBox_value_row("b_opts_testing_mode", MP.LOBBY.config.testing_mode and "Yes" or "No"),
 					}
 				}
 			} },

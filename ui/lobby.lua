@@ -167,7 +167,7 @@ function G.UIDEF.create_UIBox_lobby_menu()
 								minw = 3.65,
 								minh = 1.55,
 								label = { localize("b_start") },
-								disabled_text = MP.LOBBY.is_host and localize("b_wait_for_players")
+								disabled_text = MP.LOBBY.is_host and (MP.LOBBY.config.testing_mode and localize("b_wait_for_host_start") or localize("b_wait_for_players"))
 									or localize("b_wait_for_host_start"),
 								scale = text_scale * 2,
 								col = true,
@@ -461,6 +461,27 @@ function G.UIDEF.create_UIBox_lobby_options()
 														ref_table = MP.LOBBY.config,
 														ref_value = "no_gold_on_round_loss",
 														callback = send_lobby_options,
+													}),
+												},
+											},
+											{
+												n = G.UIT.R,
+												config = {
+													padding = 0,
+													align = "cr",
+												},
+												nodes = {
+													Disableable_Toggle({
+														id = "testing_mode_toggle",
+														enabled_ref_table = MP.LOBBY,
+														enabled_ref_value = "is_host",
+														label = localize("b_opts_testing_mode"),
+														ref_table = MP.LOBBY.config,
+														ref_value = "testing_mode",
+														callback = function()
+															send_lobby_options()
+															MP.ACTIONS.recalculate_ready_state()
+														end,
 													}),
 												},
 											},

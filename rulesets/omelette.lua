@@ -9,20 +9,22 @@ MP.DECK.OMELETTE.BANNED_TAGS = MP.UTILS.shallow_copy(MP.DECK.BANNED_TAGS)
 MP.DECK.OMELETTE.BANNED_BLINDS = MP.UTILS.shallow_copy(MP.DECK.BANNED_BLINDS)
 MP.DECK.OMELETTE.TYPE = MP.DECK.TYPE .. ""
 
--- The Omelette challenge: Start with 5 Egg Jokers, no money from blinds or interest
+-- The Omelette challenge: Start with 5 Egg Jokers
 SMODS.Challenge({
 	key = "omelette",
 	name = "The Omelette",
 	rules = {
-		custom = {
-			{ id = "no_money_from_blinds" },
-			{ id = "no_interest" },
-			{ id = "start_with_eggs" },
-		},
-		modifiers = {},
+		custom = {},
+	modifiers = {
+		{ id = "no_extra_hand_money" },
+	},
 	},
 	jokers = {
-		{ id = "j_egg", count = 5 }
+		{ id = "j_egg"},
+		{ id = "j_egg"},
+		{ id = "j_egg"},
+		{ id = "j_egg"},
+		{ id = "j_egg"},
 	},
 	consumeables = {},
 	vouchers = {},

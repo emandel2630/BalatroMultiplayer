@@ -416,6 +416,68 @@ function G.UIDEF.create_UIBox_create_lobby_button()
 										}
 									end,
 								},
+								{
+									label = localize("k_omelette"),
+									tab_definition_function = function()
+										return {
+											n = G.UIT.ROOT,
+											config = {
+												emboss = 0.05,
+												minh = 6,
+												r = 0.1,
+												minw = 10,
+												align = "tm",
+												padding = 0.2,
+												colour = G.C.BLACK,
+											},
+											nodes = {
+												{
+													n = G.UIT.R,
+													config = {
+														align = "tm",
+														padding = 0.05,
+														w = 8,
+														h = 2,
+													},
+													nodes = {
+														UIBox_button({
+															id = "start_omelette",
+															label = {
+																localize("b_start_lobby"),
+															},
+															colour = G.C.RED,
+															button = "start_lobby",
+															minw = 5,
+														}),
+													},
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "tm",
+														padding = 0.05,
+														minw = 8,
+														minh = 4,
+													},
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																text = MP.UTILS.wrapText(
+																	localize("k_omelette_description"),
+																	50
+																),
+																shadow = true,
+																scale = var_495_0 * 0.6,
+																colour = G.C.UI.TEXT_LIGHT,
+															},
+														},
+													},
+												},
+											},
+										}
+									end,
+								},
 							},
 						}),
 					},
@@ -547,6 +609,7 @@ function G.FUNCS.start_lobby(e)
 		e.config.id == "start_vanilla" and "ruleset_mp_vanilla"
 			or e.config.id == "start_weekly" and "ruleset_mp_weekly"
 			or e.config.id == "start_badlatro" and "ruleset_mp_badlatro"
+			or e.config.id == "start_omelette" and "ruleset_mp_omelette"
 			or "ruleset_mp_standard"
 	)
 	G.FUNCS.exit_overlay_menu()
