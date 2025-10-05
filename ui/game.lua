@@ -1136,7 +1136,7 @@ function Game:start_run(args)
 	-- Apply modifiers
 	if MP.LOBBY.config.ruleset == "ruleset_mp_omelette" then
 		-- Omelette ruleset: Start with 0 money, no interest, no money from wins, no comeback bonus
-		G.GAME.dollars = 0
+		G.GAME.dollars = 4
 		G.GAME.interest_amount = 0
 		G.GAME.interest_cap = 0
 		-- Disable comeback bonus for omelette mode
