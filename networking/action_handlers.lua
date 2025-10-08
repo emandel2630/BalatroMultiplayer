@@ -67,7 +67,7 @@ local function action_lobbyInfo(player_id, players_string, is_started)
 	MP.LOBBY.is_started = is_started == "true"
 	MP.LOBBY.is_host = MP.LOBBY.players[MP.LOBBY.player_id].is_host
 
-	MP.LOBBY.ready_to_start = MP.LOBBY.is_host and MP.LOBBY.player_count >= 2 and not MP.LOBBY.is_started
+	MP.LOBBY.ready_to_start = MP.LOBBY.is_host and (MP.LOBBY.player_count >= 2 or MP.LOBBY.config.testing_mode) and not MP.LOBBY.is_started
 
 	if not MP.LOBBY.is_started then
 		if MP.LOBBY.is_host then
@@ -78,6 +78,11 @@ local function action_lobbyInfo(player_id, players_string, is_started)
 			MP.ACTIONS.update_player_usernames()
 		end
 	end
+end
+
+-- Function to recalculate ready_to_start state
+function MP.ACTIONS.recalculate_ready_state()
+	MP.LOBBY.ready_to_start = MP.LOBBY.is_host and (MP.LOBBY.player_count >= 2 or MP.LOBBY.config.testing_mode) and not MP.LOBBY.is_started
 end
 
 local function action_kicked_from_lobby()
@@ -256,7 +261,10 @@ local function action_enemy_info(player_id, enemy_id, score_str, hands_left_str,
 	-- Update the rest
 	MP.GAME.enemies[player_id].hands = hands_left
 	MP.GAME.enemies[player_id].skips = skips
-	MP.GAME.enemies[player_id].lives = lives
+	-- In testing mode, don't update dummy enemy lives to prevent game exit
+	if not (MP.LOBBY.config.testing_mode and player_id == "dummy_enemy") then
+		MP.GAME.enemies[player_id].lives = lives
+	end
 	if MP.LOBBY.enemy_id and MP.LOBBY.enemy_id == player_id and MP.is_pvp_boss() then
 		G.HUD_blind:get_UIE_by_ID("HUD_blind_count"):juice_up()
 		G.HUD_blind:get_UIE_by_ID("dollars_to_be_earned"):juice_up()
@@ -284,6 +292,12 @@ local function action_set_player_team(player_id, team_id)
 end
 
 local function action_stop_game()
+	-- In testing mode, ignore stop game messages from server to prevent premature exit
+	if MP.LOBBY.config.testing_mode and MP.LOBBY.player_count == 1 then
+		sendDebugMessage("Ignoring stopGame message in testing mode", "MULTIPLAYER")
+		return
+	end
+	
 	if G.STAGE ~= G.STAGES.MAIN_MENU then
 		G.FUNCS.go_to_menu()
 		MP.UI.update_connection_status()

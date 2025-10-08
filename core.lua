@@ -27,6 +27,8 @@ MP.LOBBY = {
 		nano_br_nemesis_odd_money = 0,
 		nano_br_potluck_score_multiplier = 1.0,
 		nano_br_hivemind_transfer_tax = 1,
+		testing_mode = false,
+		challenge_mode = "omelette", -- Selected challenge mode
 	},
 	deck = {
 		back = "Red Deck",
@@ -139,6 +141,25 @@ function MP.reset_game_states()
 		}
 	end
 
+	-- In testing mode with only one player, create a dummy enemy
+	if MP.LOBBY.config.testing_mode and MP.LOBBY.player_count == 1 then
+		MP.GAME.enemies["dummy_enemy"] = {
+			enemy_id = nil,
+			team_id = "BLUE",
+			score = MP.INSANE_INT.empty(),
+			highest_score = MP.INSANE_INT.empty(),
+			score_text = "0",
+			hands = 4,
+			location = "Testing Mode Dummy",
+			skips = 0,
+			lives = 4,
+			sells = 0,
+			spent_last_shop = 0,
+		}
+		-- Set the dummy as the enemy for PvP mechanics
+		MP.LOBBY.enemy_id = "dummy_enemy"
+	end
+
 	-- Used for enemy scores not owned by a particular player
 	MP.GAME.enemies["house"] = {
 		enemy_id = nil,
@@ -199,6 +220,7 @@ MP.load_mp_dir("objects/jokers")
 MP.load_mp_dir("objects/consumables")
 MP.load_mp_dir("gamemodes")
 MP.load_mp_dir("rulesets")
+MP.load_mp_dir("challenges")
 
 MP.load_mp_dir("ui/components")
 MP.load_mp_dir("ui")

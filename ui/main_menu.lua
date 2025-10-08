@@ -416,6 +416,108 @@ function G.UIDEF.create_UIBox_create_lobby_button()
 										}
 									end,
 								},
+								{
+									label = localize("k_challenge_modes"),
+									tab_definition_function = function()
+										return {
+											n = G.UIT.ROOT,
+											config = {
+												emboss = 0.05,
+												minh = 6,
+												r = 0.1,
+												minw = 10,
+												align = "tm",
+												padding = 0.2,
+												colour = G.C.BLACK,
+											},
+											nodes = {
+												{
+													n = G.UIT.R,
+													config = {
+														align = "cm",
+														padding = 0.2,
+													},
+													nodes = {
+														create_option_cycle({
+															id = "challenge_mode_selection",
+															label = localize("b_opts_challenge_mode"),
+															options = MP.Challenge.get_all_names(),
+															current_option = 1,
+															opt_callback = "change_challenge_mode",
+														}),
+													},
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "tm",
+														padding = 0.05,
+														w = 8,
+														h = 2,
+													},
+													nodes = {
+														UIBox_button({
+															id = "start_challenge",
+															label = {
+																localize("b_start_lobby"),
+															},
+															colour = G.C.RED,
+															button = "start_lobby",
+															minw = 5,
+														}),
+													},
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "tm",
+														padding = 0.05,
+														minw = 8,
+														minh = 4,
+													},
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																text = MP.UTILS.wrapText(
+																	localize("k_challenge_modes_description"),
+																	50
+																),
+																shadow = true,
+																scale = var_495_0 * 0.6,
+																colour = G.C.UI.TEXT_LIGHT,
+															},
+														},
+													},
+												},
+												{
+													n = G.UIT.R,
+													config = {
+														align = "tm",
+														padding = 0.05,
+														minw = 8,
+														minh = 2,
+													},
+													nodes = {
+														{
+															n = G.UIT.T,
+															config = {
+																id = "challenge_mode_description",
+																text = MP.UTILS.wrapText(
+																	localize("k_omelette_description"),
+																	50
+																),
+																shadow = true,
+																scale = var_495_0 * 0.5,
+																colour = G.C.UI.TEXT_LIGHT,
+															},
+														},
+													},
+												},
+											},
+										}
+									end,
+								},
 							},
 						}),
 					},
@@ -543,12 +645,19 @@ function G.FUNCS.start_lobby(e)
 	else
 		MP.LOBBY.config.multiplayer_jokers = true
 	end
-	MP.ACTIONS.create_lobby(
-		e.config.id == "start_vanilla" and "ruleset_mp_vanilla"
+	
+	local ruleset
+	if e.config.id == "start_challenge" then
+		-- Use the selected challenge mode
+		ruleset = "ruleset_mp_" .. string.lower(MP.LOBBY.config.challenge_mode)
+	else
+		ruleset = e.config.id == "start_vanilla" and "ruleset_mp_vanilla"
 			or e.config.id == "start_weekly" and "ruleset_mp_weekly"
 			or e.config.id == "start_badlatro" and "ruleset_mp_badlatro"
 			or "ruleset_mp_standard"
-	)
+	end
+	
+	MP.ACTIONS.create_lobby(ruleset)
 	G.FUNCS.exit_overlay_menu()
 end
 
@@ -661,4 +770,23 @@ function G.FUNCS.join_game_paste(e)
 	MP.LOBBY.temp_code = MP.UTILS.get_from_clipboard()
 	MP.ACTIONS.join_lobby(MP.LOBBY.temp_code)
 	G.FUNCS.exit_overlay_menu()
+end
+
+function G.FUNCS.change_challenge_mode(e)
+	-- Get the challenge key from the display name
+	local challenge_key = MP.Challenge.get_key_from_name(e.to_val)
+	if not challenge_key then return end
+	
+	-- Update the selected challenge mode
+	MP.LOBBY.config.challenge_mode = challenge_key
+	
+	-- Update the description text
+	local description_element = G.OVERLAY_MENU:get_UIE_by_ID("challenge_mode_description")
+	if description_element then
+		description_element.config.text = MP.UTILS.wrapText(
+			localize("k_" .. challenge_key .. "_description"),
+			50
+		)
+		G.OVERLAY_MENU:recalculate()
+	end
 end
