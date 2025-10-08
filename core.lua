@@ -28,6 +28,7 @@ MP.LOBBY = {
 		nano_br_potluck_score_multiplier = 1.0,
 		nano_br_hivemind_transfer_tax = 1,
 		testing_mode = false,
+		challenge_mode = "omelette", -- Selected challenge mode
 	},
 	deck = {
 		back = "Red Deck",
