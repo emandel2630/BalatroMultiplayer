@@ -441,7 +441,7 @@ function G.UIDEF.create_UIBox_create_lobby_button()
 														create_option_cycle({
 															id = "challenge_mode_selection",
 															label = localize("b_opts_challenge_mode"),
-															options = {"Omelette"},
+															options = MP.Challenge.get_all_names(),
 															current_option = 1,
 															opt_callback = "change_challenge_mode",
 														}),
@@ -773,14 +773,18 @@ function G.FUNCS.join_game_paste(e)
 end
 
 function G.FUNCS.change_challenge_mode(e)
+	-- Get the challenge key from the display name
+	local challenge_key = MP.Challenge.get_key_from_name(e.to_val)
+	if not challenge_key then return end
+	
 	-- Update the selected challenge mode
-	MP.LOBBY.config.challenge_mode = string.lower(e.to_val)
+	MP.LOBBY.config.challenge_mode = challenge_key
 	
 	-- Update the description text
 	local description_element = G.OVERLAY_MENU:get_UIE_by_ID("challenge_mode_description")
 	if description_element then
 		description_element.config.text = MP.UTILS.wrapText(
-			localize("k_" .. string.lower(e.to_val) .. "_description"),
+			localize("k_" .. challenge_key .. "_description"),
 			50
 		)
 		G.OVERLAY_MENU:recalculate()

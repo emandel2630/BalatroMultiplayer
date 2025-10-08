@@ -1134,23 +1134,11 @@ function Game:start_run(args)
 	})
 
 	-- Apply modifiers
-	if MP.LOBBY.config.ruleset == "ruleset_mp_omelette" then
-		-- Omelette ruleset: Start with 0 money, no interest, no money from wins, no comeback bonus
-		G.GAME.dollars = 4
-		G.GAME.interest_amount = 0
-		G.GAME.interest_cap = 0
-		-- Disable comeback bonus for omelette mode
-		MP.LOBBY.config.gold_on_life_loss = false
-		-- Set up modifiers to disable money from extra hands and blind rewards
-		G.GAME.modifiers.no_extra_hand_money = true
-		G.GAME.modifiers.no_blind_reward = {
-			["Small"] = true,
-			["Big"] = true,
-			["Boss"] = true
-		}
-	else
-		G.GAME.dollars = G.GAME.dollars + MP.LOBBY.config.starting_money_modifier
-	end
+	-- Try to apply challenge-specific modifiers if this is a challenge ruleset
+	MP.Challenge.apply_modifiers(MP.LOBBY.config.ruleset)
+	
+	-- Apply standard money modifier (challenges may override this)
+	G.GAME.dollars = G.GAME.dollars + MP.LOBBY.config.starting_money_modifier
 	G.GAME.round_resets.hands = G.GAME.round_resets.hands + MP.LOBBY.config.starting_hand_modifier;
 	G.GAME.round_resets.discards = G.GAME.round_resets.discards + MP.LOBBY.config.starting_discard_modifier;
 

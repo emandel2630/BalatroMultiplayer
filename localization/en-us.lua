@@ -179,6 +179,7 @@ return {
 			c_mp_weekly = "Weekly",
 			c_mp_vanilla = "Vanilla",
 			c_mp_omelette = "Omelette",
+			c_mp_oopsall6s = "Oops! All 6s",
 		},
 		dictionary = {
 			b_singleplayer = "Singleplayer",
@@ -281,6 +282,8 @@ return {
 			k_challenge_modes_description = "Special challenge modes with unique starting conditions and rules. Select a challenge mode from the dropdown above to create a lobby with that challenge.",
 			k_omelette = "Omelette",
 			k_omelette_description = "Start with 5 Egg Jokers. A challenging PvP mode focused on joker synergies and egg hatching mechanics.",
+			k_oopsall6s = "Oops! All 6s",
+			k_oopsall6s_description = "Start with 2 Negative Eternal Oops! All 6s jokers and 2 Magician cards. All cards drawn are 6s!",
 			k_oops_ex = "Oops!",
 			k_timer = "Timer",
 			k_mods_list = "Mods List",

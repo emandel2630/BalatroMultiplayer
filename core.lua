@@ -220,6 +220,7 @@ MP.load_mp_dir("objects/jokers")
 MP.load_mp_dir("objects/consumables")
 MP.load_mp_dir("gamemodes")
 MP.load_mp_dir("rulesets")
+MP.load_mp_dir("challenges")
 
 MP.load_mp_dir("ui/components")
 MP.load_mp_dir("ui")
