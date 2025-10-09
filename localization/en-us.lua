@@ -184,6 +184,7 @@ return {
 			c_mp_15minutecity = "15 Minute City",
 			c_mp_richgetricher = "Rich Get Richer",
 			c_mp_xrayvision = "X-ray Vision",
+			c_mp_madworld = "Mad World",
 		},
 		dictionary = {
 			b_singleplayer = "Singleplayer",
@@ -296,6 +297,8 @@ return {
 			k_richgetricher_description = "Chips cannot exceed the current $. Start with $100, Seed Money voucher, and Money Tree voucher.",
 			k_xrayvision = "X-ray Vision",
 			k_xrayvision_description = "1 in 4 cards are drawn face down. Test your memory and intuition!",
+			k_madworld = "Mad World",
+			k_madworld_description = "Extra Hands no longer earn money, no interest at end of round. Start with Eternal Negative Pareidolia and Eternal Business Card. Ranks 2-9 only (32 cards). The Plant is banned.",
 			k_oops_ex = "Oops!",
 			k_timer = "Timer",
 			k_mods_list = "Mods List",
