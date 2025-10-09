@@ -147,3 +147,32 @@ MP.GAME.calculating_hand = true
 MP.GAME.pre_calc_score = G.GAME.chips + math.floor(hand_chips*mult)'''
 match_indent = true
 times = 1
+
+# Pin Ceremonial Dagger to the left in Knife's Edge challenge
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''function Game:update(dt)'''
+position = 'after'
+payload = '''-- Pin Ceremonial Dagger to first position in Knife's Edge challenge
+if MP and MP.LOBBY and MP.LOBBY.config and MP.LOBBY.config.challenge_mode == "knifesedge" and G.jokers and G.jokers.cards and #G.jokers.cards > 0 then
+  -- Find the Ceremonial Dagger
+  local dagger_card = nil
+  local dagger_index = nil
+  for i, card in ipairs(G.jokers.cards) do
+    if card.config.center.key == "j_ceremonial" then
+      dagger_card = card
+      dagger_index = i
+      break
+    end
+  end
+  
+  -- If dagger exists and is not in first position, move it to first position
+  if dagger_card and dagger_index and dagger_index ~= 1 then
+    table.remove(G.jokers.cards, dagger_index)
+    table.insert(G.jokers.cards, 1, dagger_card)
+    G.jokers:align_cards()
+  end
+end'''
+match_indent = true
+times = 1
