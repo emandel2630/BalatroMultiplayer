@@ -185,6 +185,7 @@ return {
 			c_mp_richgetricher = "Rich Get Richer",
 			c_mp_xrayvision = "X-ray Vision",
 			c_mp_madworld = "Mad World",
+			c_mp_luxurytax = "Luxury Tax",
 		},
 		dictionary = {
 			b_singleplayer = "Singleplayer",
@@ -299,6 +300,8 @@ return {
 			k_xrayvision_description = "1 in 4 cards are drawn face down. Test your memory and intuition!",
 			k_madworld = "Mad World",
 			k_madworld_description = "Extra Hands no longer earn money, no interest at end of round. Start with Eternal Negative Pareidolia and Eternal Business Card. Ranks 2-9 only (32 cards). The Plant is banned.",
+			k_luxurytax = "Luxury Tax",
+			k_luxurytax_description = "Hold -1 cards in hand for every $5 you have. Starting hand size = 10.",
 			k_oops_ex = "Oops!",
 			k_timer = "Timer",
 			k_mods_list = "Mods List",
