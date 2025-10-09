@@ -1,0 +1,20 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 2147483600
+
+# Patch CardArea:draw_card_from to make 1 in 4 cards face down in X-ray Vision challenge
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''self:emplace(card, nil, stay_flipped)'''
+position = 'at'
+payload = '''-- X-ray Vision: Make 1 in 4 cards stay face down
+local xray_flipped = stay_flipped
+if G.GAME and G.GAME.modifiers and G.GAME.modifiers.xray_vision and self == G.hand and pseudorandom('xray_vision') < 0.25 then
+  xray_flipped = true
+end
+self:emplace(card, nil, xray_flipped)'''
+match_indent = true
+times = 1
+
