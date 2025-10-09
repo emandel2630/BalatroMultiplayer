@@ -186,6 +186,7 @@ return {
 			c_mp_xrayvision = "X-ray Vision",
 			c_mp_madworld = "Mad World",
 			c_mp_luxurytax = "Luxury Tax",
+			c_mp_nonperishable = "Non-Perishable",
 		},
 		dictionary = {
 			b_singleplayer = "Singleplayer",
@@ -302,6 +303,8 @@ return {
 			k_madworld_description = "Extra Hands no longer earn money, no interest at end of round. Start with Eternal Negative Pareidolia and Eternal Business Card. Ranks 2-9 only (32 cards). The Plant is banned.",
 			k_luxurytax = "Luxury Tax",
 			k_luxurytax_description = "Hold -1 cards in hand for every $5 you have. Starting hand size = 10.",
+			k_nonperishable = "Non-Perishable",
+			k_nonperishable_description = "All Jokers are Eternal. Perishable and self-destructing jokers are banned. The Plant is banned.",
 			k_oops_ex = "Oops!",
 			k_timer = "Timer",
 			k_mods_list = "Mods List",
