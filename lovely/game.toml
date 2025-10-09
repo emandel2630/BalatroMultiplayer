@@ -139,7 +139,11 @@ pattern = '''G.E_MANAGER:add_event(Event({
       func = (function(t) return math.floor(t) end)
     }))'''
 position = 'before'
-payload = '''MP.GAME.calculating_hand = true
+payload = '''if G.GAME.modifiers.rich_get_richer and hand_chips > math.floor(G.GAME.dollars or 0) then
+  hand_chips = math.floor(G.GAME.dollars or 0)
+  update_hand_text({delay = 0}, {chips = number_format(hand_chips)})
+end
+MP.GAME.calculating_hand = true
 MP.GAME.pre_calc_score = G.GAME.chips + math.floor(hand_chips*mult)'''
 match_indent = true
 times = 1
