@@ -31,6 +31,16 @@ local omelette_challenge = {
 	end,
 }
 
+-- Add banned vouchers
+omelette_challenge.banned_cards[#omelette_challenge.banned_cards + 1] = {id = "v_seed_money"} -- Seed Money
+omelette_challenge.banned_cards[#omelette_challenge.banned_cards + 1] = {id = "v_money_tree"} -- Money Tree
+
+-- Add banned jokers
+omelette_challenge.banned_cards[#omelette_challenge.banned_cards + 1] = {id = "j_to_the_moon"} -- To the Moon
+omelette_challenge.banned_cards[#omelette_challenge.banned_cards + 1] = {id = "j_rocket"} -- Rocket
+omelette_challenge.banned_cards[#omelette_challenge.banned_cards + 1] = {id = "j_golden"} -- Golden Joker
+omelette_challenge.banned_cards[#omelette_challenge.banned_cards + 1] = {id = "j_satellite"} -- Satellite
+
 -- Register the challenge
 MP.Challenge.register(omelette_challenge)
 

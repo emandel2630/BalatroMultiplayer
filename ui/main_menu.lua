@@ -442,7 +442,19 @@ function G.UIDEF.create_UIBox_create_lobby_button()
 															id = "challenge_mode_selection",
 															label = localize("b_opts_challenge_mode"),
 															options = MP.Challenge.get_all_names(),
-															current_option = 1,
+															current_option = (function()
+																-- Find the index of the currently selected challenge
+																local current_challenge = MP.Challenges[MP.LOBBY.config.challenge_mode]
+																if current_challenge then
+																	local names = MP.Challenge.get_all_names()
+																	for i, name in ipairs(names) do
+																		if name == current_challenge.name then
+																			return i
+																		end
+																	end
+																end
+																return 1
+															end)(),
 															opt_callback = "change_challenge_mode",
 														}),
 													},
@@ -504,7 +516,7 @@ function G.UIDEF.create_UIBox_create_lobby_button()
 															config = {
 																id = "challenge_mode_description",
 																text = MP.UTILS.wrapText(
-																	localize("k_omelette_description"),
+																	localize("k_" .. (MP.LOBBY.config.challenge_mode or "omelette") .. "_description"),
 																	50
 																),
 																shadow = true,

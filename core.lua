@@ -28,7 +28,7 @@ MP.LOBBY = {
 		nano_br_potluck_score_multiplier = 1.0,
 		nano_br_hivemind_transfer_tax = 1,
 		testing_mode = false,
-		challenge_mode = "omelette", -- Selected challenge mode
+		challenge_mode = nil, -- Selected challenge mode (set after challenges load)
 	},
 	deck = {
 		back = "Red Deck",
@@ -221,6 +221,11 @@ MP.load_mp_dir("objects/consumables")
 MP.load_mp_dir("gamemodes")
 MP.load_mp_dir("rulesets")
 MP.load_mp_dir("challenges")
+
+-- Set default challenge mode to the first registered challenge
+if MP.Challenge.registered and #MP.Challenge.registered > 0 then
+	MP.LOBBY.config.challenge_mode = MP.Challenge.registered[1]
+end
 
 MP.load_mp_dir("ui/components")
 MP.load_mp_dir("ui")
