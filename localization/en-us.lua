@@ -183,6 +183,7 @@ return {
 			c_mp_knifesedge = "On a Knife's Edge",
 			c_mp_15minutecity = "15 Minute City",
 			c_mp_richgetricher = "Rich Get Richer",
+			c_mp_xrayvision = "X-ray Vision",
 		},
 		dictionary = {
 			b_singleplayer = "Singleplayer",
@@ -293,6 +294,8 @@ return {
 			k_15minutecity_description = "Start with eternal Ride the Bus and Shortcut jokers. Two copies of every face card; no Aces, 2s, or 3s.",
 			k_richgetricher = "Rich Get Richer",
 			k_richgetricher_description = "Chips cannot exceed the current $. Start with $100, Seed Money voucher, and Money Tree voucher.",
+			k_xrayvision = "X-ray Vision",
+			k_xrayvision_description = "1 in 4 cards are drawn face down. Test your memory and intuition!",
 			k_oops_ex = "Oops!",
 			k_timer = "Timer",
 			k_mods_list = "Mods List",
