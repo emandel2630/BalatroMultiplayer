@@ -1,0 +1,19 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 2147483600
+
+# Golden Needle Challenge: Charge $1 per discard
+# Patch the discard function to deduct $1 when discarding
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.GAME.current_round.discards_left = G.GAME.current_round.discards_left - 1'''
+position = 'after'
+payload = '''if G.GAME.modifiers.discard_cost and G.GAME.modifiers.discard_cost > 0 then
+  -- Charge the discard cost
+  ease_dollars(-G.GAME.modifiers.discard_cost)
+end'''
+match_indent = true
+times = 1
+

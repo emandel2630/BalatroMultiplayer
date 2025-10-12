@@ -1,0 +1,46 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 2147483600
+
+# Inflation Challenge: Increase all shop prices by $1 after each purchase
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''G.GAME.dollars = G.GAME.dollars - self.cost'''
+position = 'after'
+payload = '''if G.GAME.modifiers.inflation then
+  -- Increase inflation counter
+  G.GAME.inflation_increases = (G.GAME.inflation_increases or 0) + 1
+  
+  -- Increase all card prices in shop by $1
+  if G.shop_jokers then
+    for i = 1, #G.shop_jokers.cards do
+      if G.shop_jokers.cards[i] and G.shop_jokers.cards[i].cost then
+        G.shop_jokers.cards[i].cost = G.shop_jokers.cards[i].cost + 1
+        G.shop_jokers.cards[i]:set_cost()
+      end
+    end
+  end
+  
+  if G.shop_vouchers then
+    for i = 1, #G.shop_vouchers.cards do
+      if G.shop_vouchers.cards[i] and G.shop_vouchers.cards[i].cost then
+        G.shop_vouchers.cards[i].cost = G.shop_vouchers.cards[i].cost + 1
+        G.shop_vouchers.cards[i]:set_cost()
+      end
+    end
+  end
+  
+  if G.shop_booster then
+    for i = 1, #G.shop_booster.cards do
+      if G.shop_booster.cards[i] and G.shop_booster.cards[i].cost then
+        G.shop_booster.cards[i].cost = G.shop_booster.cards[i].cost + 1
+        G.shop_booster.cards[i]:set_cost()
+      end
+    end
+  end
+end'''
+match_indent = true
+times = 1
+

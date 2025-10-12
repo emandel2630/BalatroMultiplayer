@@ -1,0 +1,34 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 2147483600
+
+# Luxury Tax Challenge: Dynamically adjust hand size based on money
+# Hand size reduction = floor(money / 5)
+# Base hand size for this challenge is 10
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''G.GAME.dollars = G.GAME.dollars + mod'''
+position = 'after'
+payload = '''if G.GAME.modifiers.luxury_tax and G.hand then
+  -- Calculate hand size reduction based on money (-1 for every $5)
+  local money_penalty = math.floor(G.GAME.dollars / 5)
+  -- Base hand size is 10 for this challenge
+  local base_hand_size = 10
+  local target_hand_size = base_hand_size - money_penalty
+  -- Never go below 1 card in hand
+  target_hand_size = math.max(1, target_hand_size)
+  
+  -- Calculate the difference between current and target hand size
+  local current_size = G.hand.config.card_limit
+  local size_change = target_hand_size - current_size
+  
+  -- Apply the change if needed
+  if size_change ~= 0 then
+    G.hand:change_size(size_change)
+  end
+end'''
+match_indent = true
+times = 1
+

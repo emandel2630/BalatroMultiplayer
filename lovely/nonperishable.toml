@@ -1,0 +1,20 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 2147483600
+
+# Non-Perishable Challenge: All jokers become eternal
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''function Card:add_to_deck(from_debuff)'''
+position = 'after'
+payload = '''-- Non-Perishable: Make all jokers eternal
+if G.GAME and G.GAME.modifiers and G.GAME.modifiers.all_eternal then
+  if self.ability and self.ability.set == 'Joker' then
+    self:set_eternal(true)
+  end
+end'''
+match_indent = true
+times = 1
+

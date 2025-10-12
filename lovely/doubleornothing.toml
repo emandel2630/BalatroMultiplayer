@@ -1,0 +1,30 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 2147483600
+
+# Double or Nothing Challenge: Debuff cards when they're used in scoring
+# Patch where cards get their chip value to mark them as debuffed
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''function Card:get_chip_bonus()'''
+position = 'after'
+payload = '''
+  -- Double or Nothing: Mark card as permanently debuffed when used in scoring
+  if G.GAME.modifiers.double_or_nothing and self.area == G.play and self.ability and not self.ability.perma_debuff then
+    self.ability.perma_debuff = true
+  end'''
+match_indent = true
+times = 1
+
+# Make the game recognize perma_debuff flag as a debuff
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''function Card:is_debuffed()'''
+position = 'after'
+payload = '''
+  if self.ability and self.ability.perma_debuff then return true end'''
+match_indent = true
+times = 1
