@@ -195,7 +195,8 @@ return {
 		c_mp_fivecarddraw = "Five-Card Draw",
 		c_mp_cruelty = "Cruelty",
 		c_mp_goldenneedle = "Golden Needle",
-		c_mp_typecast = "Typecast",
+			c_mp_typecast = "Typecast",
+			c_mp_leagueoflegends = "League of Legends",
 		},
 		dictionary = {
 			b_singleplayer = "Singleplayer",
@@ -338,6 +339,8 @@ return {
 			k_goldenneedle_description = "Discards each cost $1. 1 hand per round, 6 discards per round. Start with $10 and Credit Card voucher. Burglar, Grabber, and Nacho Tong are banned.",
 			k_typecast = "Typecast",
 			k_typecast_description = "When ante 3 boss is defeated, all Jokers become Eternal and Joker slots set to 0. The Plant is banned.",
+			k_leagueoflegends = "League of Legends",
+			k_leagueoflegends_description = "Start with Perkeo, Canio, Yorick, and Triboulet jokers that are negative and eternal. Welcome to the league of legends!",
 			k_oops_ex = "Oops!",
 			k_timer = "Timer",
 			k_mods_list = "Mods List",
